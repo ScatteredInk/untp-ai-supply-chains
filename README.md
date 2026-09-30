@@ -16,7 +16,7 @@ ODS Field Work, AI Supply Chains (September 2026). This is a prototype of how fa
 | `sources.md` | Every source, with URL and access date. Keys are cited in the matrix and register. |
 | `sources/snapshots/` | Raw copies of the Hugging Face API responses and cards, the UNTP taxonomies and the Rec 20 code list |
 | `validation-report.md` | Validation results (generated) |
-| `slides/` | Slide diagrams: `diagram-1-chain` (the chain, core vs extension links) and `diagram-2-model-passport` (inside the OLMo 2 7B passport), as SVG and 2× PNG. Also `chain-fields.csv`, `gap-summary.csv` and an earlier `index.html` draft. |
+| `slides/` | Slide diagrams: `diagram-1-chain` (the chain, core vs extension links) and `diagram-2-model-passport` (inside the OLMo 2 7B passport) and `diagram-3-untp-data` (the four UNTP credential types), as SVG and 2× PNG with transparent backgrounds. Also `chain-fields.csv`, `gap-summary.csv` and an earlier `index.html` draft. |
 
 ## Run
 

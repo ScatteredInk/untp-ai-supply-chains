@@ -35,15 +35,22 @@ def font_css():
     return "".join(faces)
 
 
-def svg(body):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
+KNOCK = []  # label areas cut out of connector lines (keeps the background transparent)
+
+
+def svg(body, w=W, h=H):
+    holes = "".join(f'<rect x="{x:.0f}" y="{y:.0f}" width="{w:.0f}" height="{h:.0f}" fill="black"/>'
+                    for x, y, w, h in KNOCK)
+    KNOCK.clear()
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
             f'font-family="{FONT}">'
             f"<style>{font_css()}</style>"
             '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" '
             f'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{G1}"/></marker>'
             '<marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" '
             f'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{SKY}"/></marker></defs>'
-            f'<rect width="{W}" height="{H}" fill="#ffffff"/>{body}</svg>')
+            f'<mask id="knock" maskUnits="userSpaceOnUse"><rect width="{w}" height="{h}" fill="white"/>{holes}</mask>'
+            f'{body}</svg>')
 
 
 def text(x, y, s, size=14, weight=400, fill=INK, anchor="start", extra=""):
@@ -56,15 +63,15 @@ def line(points, ext=False, arrow=True, width=2):
     colour = SKY if ext else G1
     dash = ' stroke-dasharray="8 6"' if ext else ""
     mk = f' marker-end="url(#{"ahx" if ext else "ah"})"' if arrow else ""
-    return f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash}{mk}/>'
+    return f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash}{mk} mask="url(#knock)"/>'
 
 
 def label(x, y, s, ext=False, anchor="middle", size=14):
     """Field-name label on a white knock-out so it reads over lines."""
     w = len(s) * size * 0.56 + 12
     x0 = x - w / 2 if anchor == "middle" else x - 6 if anchor == "start" else x - w + 6
-    return (f'<rect x="{x0:.0f}" y="{y - size - 2}" width="{w:.0f}" height="{size + 9}" fill="#ffffff"/>'
-            + text(x, y, s, size, 600, SKY if ext else G1, anchor))
+    KNOCK.append((x0, y - size - 2, w, size + 9))
+    return (text(x, y, s, size, 600, SKY if ext else G1, anchor))
 
 
 def status_counts():
@@ -73,7 +80,7 @@ def status_counts():
             for c in dict.fromkeys(r["credential"] for r in rows)}
 
 
-def status_bar(x, y, w, counts, h=10):
+def status_bar(x, y, w, counts, h=12):
     total = sum(counts.values())
     out, cx = [], x
     for st in ("published", "needs extension vocabulary", "not published"):
@@ -84,7 +91,7 @@ def status_bar(x, y, w, counts, h=10):
         out.append(f'<rect x="{cx:.1f}" y="{y}" width="{sw:.1f}" height="{h}" fill="{STATUS_FILL[st]}"/>')
         cx += sw
     nums = " · ".join(str(counts.get(s, 0)) for s in ("published", "needs extension vocabulary", "not published"))
-    out.append(text(x + w, y + h + 15, nums, 11, 400, G1, "end"))
+    out.append(text(x + w, y + h + 18, nums, 14, 400, G1, "end"))
     return "".join(out)
 
 
@@ -92,17 +99,32 @@ def node(x, y, w, h, kind, name, lines, counts, tag=None, highlight=False):
     fill = CREAM if highlight else "#ffffff"
     stroke, sw = (INK, 2.5) if highlight else (G2, 1.5)
     out = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>',
-           text(x + 14, y + 22, kind.upper(), 11, 600, G1, extra='letter-spacing="0.08em"'),
-           text(x + 14, y + 46, name, 19 if highlight else 17, 700)]
-    ly = y + 68
+           text(x + 14, y + 25, kind.upper(), 14, 600, G1, extra='letter-spacing="0.06em"'),
+           text(x + 14, y + 53, name, 23 if highlight else 21, 700)]
+    ly = y + 80
     for s in lines:
-        out.append(text(x + 14, ly, s, 13, 400, G1))
-        ly += 18
+        out.append(text(x + 14, ly, s, 17, 400, G1))
+        ly += 23
     if tag:
-        tw = len(tag) * 12 * 0.56 + 14
-        out.append(f'<rect x="{x + 14}" y="{ly - 12}" width="{tw:.0f}" height="19" fill="#ffffff" stroke="{SKY}" '
-                   f'stroke-width="1.5" stroke-dasharray="4 3"/>' + text(x + 21, ly + 2, tag, 12, 600, SKY))
-    out.append(status_bar(x + 14, y + h - 32, w - 28, counts))
+        tw = len(tag) * 14 * 0.56 + 14
+        out.append(f'<rect x="{x + 14}" y="{ly - 16}" width="{tw:.0f}" height="24" fill="#ffffff" stroke="{SKY}" '
+                   f'stroke-width="1.5" stroke-dasharray="4 3"/>' + text(x + 21, ly + 2, tag, 14, 600, SKY))
+    out.append(status_bar(x + 14, y + h - 40, w - 28, counts))
+    return "".join(out)
+
+
+def legend_row(x, y, items, size=17):
+    """items: ('line', ext, label) or ('box', status, label); laid out left to right."""
+    out = []
+    for kind, key, lab in items:
+        if kind == "line":
+            out.append(line([(x, y), (x + 56, y)], key))
+            x += 68
+        else:
+            out.append(f'<rect x="{x}" y="{y - 8}" width="24" height="14" fill="{STATUS_FILL[key]}"/>')
+            x += 34
+        out.append(text(x, y + 6, lab, size, 400, G1))
+        x += len(lab) * size * 0.53 + 40
     return "".join(out)
 
 
@@ -110,42 +132,44 @@ def node(x, y, w, h, kind, name, lines, counts, tag=None, highlight=False):
 
 def diagram_chain():
     c = status_counts()
-    cols = {"chips": (40, 220), "sites": (440, 240), "data": (720, 240), "train": (1060, 240), "model": (1380, 180)}
-    top1, top2, nh = 255, 415, 132
+    cols = {"chips": (40, 230), "sites": (430, 250), "data": (720, 250), "train": (1060, 250), "model": (1370, 190)}
+    top1, nh, gap = 250, 160, 28
+    top2 = top1 + nh + gap
     mid = (top1 + top2 + nh) / 2
     b = []
     headers = [("chips", "CHIPS", "stretch"), ("sites", "SITES", ""), ("data", "DATA", ""),
                ("train", "TRAINING RUNS", ""), ("model", "MODEL", "")]
     for k, h, note in headers:
         x, _ = cols[k]
-        b.append(text(x, 230, h, 13, 700, G1, extra='letter-spacing="0.1em"'))
+        b.append(text(x, 225, h, 17, 700, G1, extra='letter-spacing="0.08em"'))
         if note:
-            b.append(text(x + 62, 230, note, 12, 400, G1))
+            b.append(text(x + 78, 225, note, 16, 400, G1))
 
     x, w = cols["chips"]
     ch_y = top1
-    b.append(node(x, ch_y, w, 150, "DPP", "NVIDIA H100 SXM5",
-                  ["80 GB HBM3, 700 W", "model level: lots not", "published"], c["01-h100-sxm5-passport"]))
+    b.append(node(x, ch_y, w, nh, "DPP", "NVIDIA H100 SXM5", ["80 GB HBM3, 700 W"], c["01-h100-sxm5-passport"]))
     x, w = cols["sites"]
-    b.append(node(x, top1, w, nh, "DFR", "Jupiter, Austin TX", ["1,024 H100 · PUE 1.2"], c["02-jupiter-facility-record"]))
-    b.append(node(x, top2, w, nh, "DFR", "Augusta, Council Bluffs IA", ["160 A3 Mega VMs · PUE 1.12"],
+    b.append(node(x, top1, w, nh, "DFR", "Jupiter", ["Austin, Texas", "1,024 H100 · PUE 1.2"],
+                  c["02-jupiter-facility-record"]))
+    b.append(node(x, top2, w, nh, "DFR", "Augusta", ["Council Bluffs, Iowa", "160 A3 Mega VMs · PUE 1.12"],
                   c["03-augusta-facility-record"]))
     x, w = cols["data"]
-    b.append(node(x, top1, w, nh, "DPP", "olmo-mix-1124", ["3.90T tokens · pretraining"], c["04-olmo-mix-1124-passport"]))
-    b.append(node(x, top2, w, nh, "DPP", "dolmino-mix-1124", ["843B tokens · mid-training"],
+    b.append(node(x, top1, w, nh, "DPP", "olmo-mix-1124", ["3.90T tokens", "pretraining"],
+                  c["04-olmo-mix-1124-passport"]))
+    b.append(node(x, top2, w, nh, "DPP", "dolmino-mix-1124", ["843B tokens", "mid-training"],
                   c["05-dolmino-mix-1124-passport"]))
     x, w = cols["train"]
-    b.append(node(x, top1, w, nh + 10, "DTE · MakeEvent", "Training at Jupiter", [], c["06-training-run-jupiter"],
+    b.append(node(x, top1, w, nh, "DTE · MakeEvent", "Training at Jupiter", [], c["06-training-run-jupiter"],
                   tag="activityType: aic training"))
-    b.append(node(x, top2 + 10, w, nh + 10, "DTE · MakeEvent", "Training at Augusta", [],
+    b.append(node(x, top2, w, nh, "DTE · MakeEvent", "Training at Augusta", [],
                   c["07-training-run-augusta"], tag="activityType: aic training"))
     x, w = cols["model"]
-    m_y = mid - 95
-    b.append(node(x, m_y, w, 190, "DPP", "OLMo 2 7B",
-                  ["allenai/OLMo-2-1124-7B", "131 MWh · 52 t CO2e", "202 m³ water"],
+    mh = 200
+    m_y = mid - mh / 2
+    b.append(node(x, m_y, w, mh, "DPP", "OLMo 2 7B", ["131 MWh", "52 t CO2e", "202 m³ water"],
                   c["08-olmo-2-7b-passport"], highlight=True))
 
-    def bus(x_from, x_to, ys_from, ys_to, name, ext):
+    def bus(x_from, x_to, ys_from, ys_to, ext):
         """Fan-in / fan-out between adjacent columns via a vertical bus."""
         bx = (x_from + x_to) / 2
         out = []
@@ -159,51 +183,39 @@ def diagram_chain():
         return out, bx
 
     r1, r2 = top1 + nh / 2, top2 + nh / 2
-    parts, bx = bus(cols["chips"][0] + cols["chips"][1], cols["sites"][0], [r1], [r1, r2], "", True)
+    below = top2 + nh + 34  # label row under the node rows
+    parts, bx = bus(cols["chips"][0] + cols["chips"][1], cols["sites"][0], [r1], [r1, r2], True)
     b += parts
-    b.append(label(bx - 14, r2 + 5, "aic:installedEquipment", True, anchor="end"))
-    parts, bx = bus(cols["data"][0] + cols["data"][1], cols["train"][0], [r1, r2], [r1 + 5, r2 + 15], "", False)
-    b += parts
-    b.append(line([(bx, r2 + 15), (bx, top2 + nh + 20 + 8)], arrow=False))
-    b.append(label(bx, top2 + nh + 20 + 26, "inputProduct"))
-    parts, bx = bus(cols["train"][0] + cols["train"][1], cols["model"][0], [r1 + 5, r2 + 15], [mid], "", False)
-    b += parts
-    b.append(line([(bx, r2 + 15), (bx, top2 + nh + 20 + 8)], arrow=False))
-    b.append(label(bx, top2 + nh + 20 + 26, "outputProduct"))
+    b.append(label(bx - 16, r2 + 6, "aic:installedEquipment", True, anchor="end", size=17))
+    for frm, to, name in (("data", "train", "inputProduct"), ("train", "model", "outputProduct")):
+        ys_to = [mid] if to == "model" else [r1, r2]
+        parts, bx = bus(cols[frm][0] + cols[frm][1], cols[to][0], [r1, r2], ys_to, False)
+        b += parts
+        b.append(line([(bx, r2), (bx, below - 20)], arrow=False))
+        b.append(label(bx, below, name, size=17))
 
     # sites -> training: madeAtFacility, routed under the data column
     sx = cols["sites"][0] + cols["sites"][1] / 2
     tx = cols["train"][0] + cols["train"][1] / 2
-    yb = top2 + nh + 70
-    b.append(line([(sx, top2 + nh), (sx, yb), (tx - 30, yb), (tx - 30, top2 + nh + 12)]))
-    b.append(label((sx + tx) / 2, yb + 5, "madeAtFacility"))
-    # model -> sites: producedAtFacility (one) + aic:producedAtFacilities (both)
+    yb = below + 50
+    b.append(line([(sx, top2 + nh), (sx, yb), (tx - 30, yb), (tx - 30, top2 + nh + 2)]))
+    b.append(label((sx + tx) / 2, yb + 6, "madeAtFacility", size=17))
+    # model -> sites: producedAtFacility + aic:producedAtFacilities
     mx = cols["model"][0] + cols["model"][1] / 2
-    yb2 = yb + 72
-    b.append(line([(mx, m_y + 190), (mx, yb2), (sx - 50, yb2), (sx - 50, top2 + nh + 2)], True))
-    b.append(label((sx + mx) / 2 + 60, yb2 + 5,
-                   "producedAtFacility holds one site  ·  aic:producedAtFacilities holds both", True))
+    yb2 = yb + 62
+    b.append(line([(mx, m_y + mh), (mx, yb2), (sx - 50, yb2), (sx - 50, top2 + nh + 2)], True))
+    b.append(label((sx + mx) / 2 + 60, yb2 + 6, "producedAtFacility · aic:producedAtFacilities", True, size=17))
     # training -> chips: aic:equipmentUsed, routed above
     ex = cols["train"][0] + cols["train"][1] - 40
     cx = cols["chips"][0] + cols["chips"][1] - 50
     yt = 150
     b.append(line([(ex, top1), (ex, yt), (cx, yt), (cx, ch_y - 2)], True))
-    b.append(label((ex + cx) / 2, yt + 5, "aic:equipmentUsed  (GPUs are used by training, not consumed)", True))
+    b.append(label((ex + cx) / 2, yt + 6, "aic:equipmentUsed", True, size=17))
 
-    # legend
-    ly = 830
-    b.append(line([(40, ly), (100, ly)], False))
-    b.append(text(112, ly + 5, "core UNTP 0.7.0 property", 14, 400, G1))
-    b.append(line([(330, ly), (390, ly)], True))
-    b.append(text(402, ly + 5, "proposed aic: extension property", 14, 400, G1))
-    lx = 690
-    b.append(text(lx, ly + 5, "Fields per credential:", 14, 600, G1))
-    lx += 158
-    for st, lab in (("published", "published"), ("needs extension vocabulary", "needs extension vocabulary"),
-                    ("not published", "not published")):
-        b.append(f'<rect x="{lx}" y="{ly - 7}" width="22" height="12" fill="{STATUS_FILL[st]}"/>')
-        b.append(text(lx + 30, ly + 5, lab, 14, 400, G1))
-        lx += 30 + len(lab) * 7.9 + 26
+    b.append(legend_row(40, 850, [
+        ("line", False, "core UNTP 0.7.0 property"), ("line", True, "proposed aic: extension property"),
+        ("box", "published", "published"), ("box", "needs extension vocabulary", "needs extension vocabulary"),
+        ("box", "not published", "not published")]))
     return svg("".join(b))
 
 
@@ -211,109 +223,111 @@ def diagram_chain():
 
 def diagram_passport():
     b = []
-    # context strip: the chain with the model highlighted
-    steps = ["chips", "sites", "data", "training runs", "model"]
-    x = 40
-    for i, s in enumerate(steps):
-        w = len(s) * 8 + 26
-        hl = s == "model"
-        b.append(f'<rect x="{x}" y="28" width="{w}" height="28" fill="{CREAM if hl else "#ffffff"}" '
-                 f'stroke="{INK if hl else G2}" stroke-width="{2 if hl else 1.2}"/>')
-        b.append(text(x + w / 2, 47, s, 13, 700 if hl else 400, INK if hl else G1, "middle"))
-        if i < len(steps) - 1:
-            b.append(line([(x + w + 4, 42), (x + w + 30, 42)], width=1.5))
-        x += w + 34
-
-    cx, cy, cw = 40, 80, W - 80
-    rh = 29
+    cx, cy, cw = 40, 30, W - 80
+    rh = 32
     core = [
-        ("id", "huggingface.co/allenai/OLMo-2-1124-7B/tree/7df9a825…", "needs extension vocabulary", 1),
-        ("modelNumber", "allenai/OLMo-2-1124-7B", "published", None),
-        ("batchNumber", "7df9a82518afdecae4e8c026b27adccc8c1f0032  (commit)", "published", None),
-        ("idGranularity", "batch", "needs extension vocabulary", 1),
-        ("productCategory", "UN CPC 84399 Other on-line content n.e.c.  +  aic foundation-model", "needs extension vocabulary", None),
-        ("relatedParty", "producer: The Allen Institute For Artificial Intelligence (EIN 82-4083177)", "published", None),
-        ("producedAtFacility", "Jupiter cluster (Ai2), Austin, Texas", "needs extension vocabulary", 2),
-        ("countryOfProduction", "US", "published", None),
-        ("productionDate", "(empty)", "not published", 3),
+        ("id", "huggingface.co/allenai/OLMo-2-1124-7B/tree/7df9a825…", "needs extension vocabulary"),
+        ("modelNumber", "allenai/OLMo-2-1124-7B", "published"),
+        ("batchNumber", "7df9a82518afdecae4e8c026b27adccc8c1f0032", "published"),
+        ("idGranularity", "batch", "needs extension vocabulary"),
+        ("productCategory", "UN CPC 84399 Other on-line content n.e.c. · aic foundation-model", "needs extension vocabulary"),
+        ("relatedParty", "producer: The Allen Institute For Artificial Intelligence, EIN 82-4083177", "published"),
+        ("producedAtFacility", "Jupiter", "needs extension vocabulary"),
+        ("countryOfProduction", "US", "published"),
+        ("productionDate", "—", "not published"),
         ("performanceClaim", "131 MWH total-energy-consumption · 52 TNE total-ghg-emissions · 202 MTQ water-consumption",
-         "needs extension vocabulary", 3),
-        ("materialProvenance, dimensions", "(empty) mass fractions and physical size do not apply", "needs extension vocabulary", None),
+         "needs extension vocabulary"),
+        ("materialProvenance, dimensions", "—", "needs extension vocabulary"),
     ]
     ext = [
-        ("aic:artefactFiles", "6 safetensors files, each with SHA-256, e.g. 880c0d9bd731…  (29.2 GB)", 1),
-        ("aic:parameterCount", "7,298,617,344 PARAMETER", 4),
-        ("aic:trainingCompute", "1.8 × 10²³ FLOP", 4),
-        ("aic:trainingTokens", "4.05 × 10¹² TOKEN", 4),
-        ("aic:trainingData", "olmo-mix-1124 3.90T TOKEN (pretraining) · dolmino-mix-1124 3 × 50B TOKEN (mid-training)", None),
-        ("aic:producedAtFacilities", "Jupiter, Augusta", 2),
-        ("aic:architecture", "Olmo2ForCausalLM  (+ aic:layerCount, aic:contextLength, aic:vocabularySize …)", None),
-        ("aic:licence", "Apache-2.0", None),
+        ("aic:artefactFiles", "6 safetensors files with SHA-256 · 29.2 GB"),
+        ("aic:parameterCount", "7,298,617,344 PARAMETER"),
+        ("aic:trainingCompute", "1.8 × 10²³ FLOP"),
+        ("aic:trainingTokens", "4.05 × 10¹² TOKEN"),
+        ("aic:trainingData", "olmo-mix-1124 3.90T TOKEN pretraining · dolmino-mix-1124 3 × 50B TOKEN mid-training"),
+        ("aic:producedAtFacilities", "Jupiter, Augusta"),
+        ("aic:architecture", "Olmo2ForCausalLM"),
+        ("aic:licence", "Apache-2.0"),
     ]
-    head = 64
-    band_a = 34 + len(core) * rh + 10
-    band_b = 34 + len(ext) * rh + 10
-    ch = head + band_a + band_b + 10
+    head = 70
+    band_a = 38 + len(core) * rh + 8
+    band_b = 38 + len(ext) * rh + 8
+    ch = head + band_a + band_b + 6
     b.append(f'<rect x="{cx}" y="{cy}" width="{cw}" height="{ch}" fill="#ffffff" stroke="{INK}" stroke-width="2"/>')
     b.append(f'<rect x="{cx}" y="{cy}" width="{cw}" height="{head}" fill="{CREAM}"/>')
     b.append(f'<line x1="{cx}" y1="{cy + head}" x2="{cx + cw}" y2="{cy + head}" stroke="{INK}" stroke-width="1"/>')
-    b.append(text(cx + 20, cy + 24, "DIGITAL PRODUCT PASSPORT · credentialSubject", 12, 600, G1,
-                  extra='letter-spacing="0.08em"'))
-    b.append(text(cx + 20, cy + 50, "OLMo 2 7B", 22, 700))
+    b.append(text(cx + 20, cy + 26, "DIGITAL PRODUCT PASSPORT · credentialSubject", 15, 600, G1,
+                  extra='letter-spacing="0.06em"'))
+    b.append(text(cx + 20, cy + 57, "OLMo 2 7B", 27, 700))
 
-    fx, vx = cx + 50, cx + 330
-
-    def badge(x, y, n):
-        return (f'<rect x="{x}" y="{y - 15}" width="20" height="20" fill="{INK}"/>'
-                + text(x + 10, y, str(n), 13, 700, "#ffffff", "middle"))
+    fx, vx = cx + 54, cx + 400
 
     def rows(items, y0, is_ext):
         out = []
         y = y0
         for item in items:
-            if is_ext:
-                field, value, n = item
-                st = "needs extension vocabulary"
-            else:
-                field, value, st, n = item
-            out.append(f'<rect x="{cx + 20}" y="{y - 13}" width="16" height="16" fill="{STATUS_FILL[st]}"/>')
-            out.append(text(fx, y, field, 15, 600, SKY if is_ext else INK))
-            vcol = G1 if value.startswith("(empty)") else INK
-            out.append(text(vx, y, value, 14.5, 400, vcol))
-            out.append(f'<line x1="{cx + 20}" y1="{y + 10}" x2="{cx + cw - 20}" y2="{y + 10}" stroke="{G4}" stroke-width="1"/>')
+            field, value = item[0], item[1]
+            st = "needs extension vocabulary" if is_ext else item[2]
+            out.append(f'<rect x="{cx + 20}" y="{y - 16}" width="19" height="19" fill="{STATUS_FILL[st]}"/>')
+            out.append(text(fx, y, field, 19, 600, SKY if is_ext else INK))
+            out.append(text(vx, y, value, 18, 400, G1 if value == "—" else INK))
+            out.append(f'<line x1="{cx + 20}" y1="{y + 11}" x2="{cx + cw - 20}" y2="{y + 11}" stroke="{G4}" stroke-width="1"/>')
             y += rh
         return out
 
     ya = cy + head
     b.append(f'<rect x="{cx}" y="{ya}" width="6" height="{band_a}" fill="{G2}"/>')
-    b.append(text(cx + 20, ya + 26, "CORE UNTP 0.7.0 FIELDS", 12, 700, G1, extra='letter-spacing="0.1em"'))
-    b += rows(core, ya + 26 + rh, False)
+    b.append(text(cx + 20, ya + 28, "CORE UNTP 0.7.0 FIELDS", 15, 700, G1, extra='letter-spacing="0.08em"'))
+    b += rows(core, ya + 28 + rh, False)
     yb = ya + band_a
     b.append(f'<line x1="{cx}" y1="{yb}" x2="{cx + cw}" y2="{yb}" stroke="{G2}" stroke-width="1"/>')
     b.append(f'<rect x="{cx}" y="{yb}" width="6" height="{band_b}" fill="{SKY}"/>')
-    b.append(text(cx + 20, yb + 26, "PROPOSED aic: EXTENSION  (in characteristics, or beside core fields)", 12, 700, SKY,
-                  extra='letter-spacing="0.1em"'))
-    b += rows(ext, yb + 26 + rh, True)
+    b.append(text(cx + 20, yb + 28, "PROPOSED aic: EXTENSION", 15, 700, SKY, extra='letter-spacing="0.08em"'))
+    b += rows(ext, yb + 28 + rh, True)
 
-    ly = cy + ch + 34
-    lx = cx
-    for st in ("published", "needs extension vocabulary", "not published"):
-        b.append(f'<rect x="{lx}" y="{ly - 12}" width="16" height="16" fill="{STATUS_FILL[st]}"/>')
-        b.append(text(lx + 24, ly + 1, st, 14, 400, G1))
-        lx += 24 + len(st) * 7.9 + 30
+    b.append(legend_row(cx, cy + ch + 30, [
+        ("box", "published", "published"), ("box", "needs extension vocabulary", "needs extension vocabulary"),
+        ("box", "not published", "not published")]))
     return svg("".join(b))
 
 
-def render_png(svg_path):
+def render_png(svg_path, w=W, h=H):
     chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
     png = svg_path.with_suffix(".png")
     wrapper = svg_path.with_suffix(".render.html")
-    wrapper.write_text(f'<html><body style="margin:0">{svg_path.read_text()}</body></html>')
-    subprocess.run([chrome, "--headless=new", "--disable-gpu", "--hide-scrollbars", f"--window-size={W},{H}",
+    wrapper.write_text(f'<html><body style="margin:0;background:transparent">{svg_path.read_text()}</body></html>')
+    subprocess.run([chrome, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--default-background-color=00000000", f"--window-size={w},{h}",
                     "--force-device-scale-factor=2", "--virtual-time-budget=3000",
                     f"--screenshot={png}", f"file://{wrapper}"], check=True, capture_output=True)
     wrapper.unlink()
     return png
+
+
+# ------------------------------------------------------------------ diagram 3
+
+DATA_W, DATA_H = 1600, 240
+OLIVE = "#c2b520"
+
+
+def diagram_untp_data():
+    """ODS-branded version of the four UNTP credential types: boxes only."""
+    b = []
+    boxes = [
+        (["Digital Traceability", "Event"], SKY),
+        (["Digital Product", "Passport"], SAGE),
+        (["Digital Facility", "Record"], OLIVE),
+        (["Conformity", "Credential"], SUNBURST),
+    ]
+    gap = 40
+    bw = (DATA_W - 3 * gap) / 4
+    bh, by = DATA_H, 0
+    for i, (lines_, colour) in enumerate(boxes):
+        x = i * (bw + gap)
+        b.append(f'<rect x="{x:.0f}" y="{by}" width="{bw:.0f}" height="{bh}" fill="{colour}"/>')
+        ty = by + (bh - 2 * 42) / 2 + 32
+        for j, s in enumerate(lines_):
+            b.append(text(x + bw / 2, ty + j * 42, s, 32, 700, INK, "middle"))
+    return svg("".join(b), DATA_W, DATA_H)
 
 
 def main():
@@ -321,6 +335,9 @@ def main():
         p = OUT / f"{name}.svg"
         p.write_text(fn())
         print("wrote", p.name, render_png(p).name)
+    p = OUT / "diagram-3-untp-data.svg"
+    p.write_text(diagram_untp_data())
+    print("wrote", p.name, render_png(p, DATA_W, DATA_H).name)
 
 
 if __name__ == "__main__":

@@ -204,8 +204,6 @@ def diagram_chain():
         b.append(f'<rect x="{lx}" y="{ly - 7}" width="22" height="12" fill="{STATUS_FILL[st]}"/>')
         b.append(text(lx + 30, ly + 5, lab, 14, 400, G1))
         lx += 30 + len(lab) * 7.9 + 26
-    b.append(text(40, 870, "Reconstructed by ODS from public sources, 30 Sep 2026. Unsigned; fictional issuer. "
-                           "Counts are the top-level fields beneath each credential subject.", 12, 400, G1))
     return svg("".join(b))
 
 
@@ -303,8 +301,6 @@ def diagram_passport():
         b.append(f'<rect x="{lx}" y="{ly - 12}" width="16" height="16" fill="{STATUS_FILL[st]}"/>')
         b.append(text(lx + 24, ly + 1, st, 14, 400, G1))
         lx += 24 + len(st) * 7.9 + 30
-    b.append(text(W - 40, ly + 1, "Values from Hugging Face (commit 7df9a825) and OLMo 2 report, Tables 6 and 19. "
-                                  "Reconstructed by ODS; unsigned.", 12, 400, G1, "end"))
     return svg("".join(b))
 
 

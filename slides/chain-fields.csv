@@ -1,0 +1,120 @@
+credential,type,title,chain,field,required,status,placeholder,extension_property
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),modelNumber,no,not published,yes,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),idGranularity,yes,published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),productImage,no,not published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),productCategory,yes,needs extension vocabulary,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),relatedParty,no,published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),producedAtFacility,yes,not published,yes,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),productionDate,no,not published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),countryOfProduction,yes,not published,yes,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),dimensions,no,not published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),materialProvenance,no,needs extension vocabulary,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),productLabel,no,not published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),performanceClaim,no,not published,no,no
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:architecture,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:die,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:processNode,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:transistorCount,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:dieArea,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:memoryCapacity,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:memoryType,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:thermalDesignPower,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:formFactor,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:components,no,needs extension vocabulary,no,yes
+01-h100-sxm5-passport,DPP,NVIDIA H100 SXM5 80GB (model level),1 chips (stretch),aic:chipExplorerInputs,no,needs extension vocabulary,no,yes
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,registeredId,no,not published,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,countryOfOperation,yes,published,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,processCategory,yes,published,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,relatedParty,no,published,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,facilityAlsoKnownAs,no,not published,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,locationInformation,yes,not published,yes,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,address,yes,published,yes,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,materialUsage,no,not published,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,performanceClaim,no,needs extension vocabulary,no,no
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,aic:installedEquipment,no,needs extension vocabulary,yes,yes
+02-jupiter-facility-record,DFR,"Jupiter, Austin TX",2 sites,aic:computeTenant,no,needs extension vocabulary,no,yes
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,registeredId,no,not published,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,countryOfOperation,yes,published,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,processCategory,yes,published,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,relatedParty,no,published,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,facilityAlsoKnownAs,no,not published,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,locationInformation,yes,not published,yes,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,address,yes,published,yes,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,materialUsage,no,not published,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,performanceClaim,no,needs extension vocabulary,no,no
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,aic:installedEquipment,no,needs extension vocabulary,yes,yes
+03-augusta-facility-record,DFR,"Augusta, Council Bluffs IA",2 sites,aic:computeTenant,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,modelNumber,no,published,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,batchNumber,no,published,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,idGranularity,yes,needs extension vocabulary,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,productCategory,yes,needs extension vocabulary,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,relatedParty,no,published,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,producedAtFacility,yes,not published,yes,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,productionDate,no,not published,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,countryOfProduction,yes,not published,yes,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,dimensions,no,needs extension vocabulary,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,materialProvenance,no,needs extension vocabulary,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,performanceClaim,no,not published,no,no
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:tokenCount,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:byteSize,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:documentCount,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:licence,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:composition,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,modelNumber,no,published,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,batchNumber,no,published,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,idGranularity,yes,needs extension vocabulary,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,productCategory,yes,needs extension vocabulary,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,relatedParty,no,published,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,producedAtFacility,yes,not published,yes,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,productionDate,no,not published,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,countryOfProduction,yes,not published,yes,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,dimensions,no,needs extension vocabulary,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,materialProvenance,no,needs extension vocabulary,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,performanceClaim,no,not published,no,no
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:tokenCount,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:byteSize,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:documentCount,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:licence,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:composition,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:sampleComposition,no,needs extension vocabulary,no,yes
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,eventDate,yes,not published,yes,no
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,activityType,yes,needs extension vocabulary,no,no
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,relatedParty,no,published,no,no
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,inputProduct,yes,needs extension vocabulary,no,no
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,outputProduct,yes,needs extension vocabulary,no,no
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,madeAtFacility,yes,published,no,no
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,aic:equipmentUsed,no,needs extension vocabulary,yes,yes
+06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,aic:trainingShare,no,not published,yes,yes
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,eventDate,yes,not published,yes,no
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,activityType,yes,needs extension vocabulary,no,no
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,relatedParty,no,published,no,no
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,inputProduct,yes,needs extension vocabulary,no,no
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,outputProduct,yes,needs extension vocabulary,no,no
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,madeAtFacility,yes,published,no,no
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,aic:equipmentUsed,no,needs extension vocabulary,yes,yes
+07-training-run-augusta,DTE MakeEvent,Training at Augusta,4 training runs,aic:trainingShare,no,not published,yes,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,modelNumber,no,published,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,batchNumber,no,published,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,idGranularity,yes,needs extension vocabulary,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,productCategory,yes,needs extension vocabulary,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,relatedParty,no,published,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,producedAtFacility,yes,needs extension vocabulary,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,productionDate,no,not published,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,countryOfProduction,yes,published,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,dimensions,no,needs extension vocabulary,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,materialProvenance,no,needs extension vocabulary,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,performanceClaim,no,needs extension vocabulary,no,no
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:architecture,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:parameterCount,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:layerCount,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:hiddenSize,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:contextLength,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:vocabularySize,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:tensorDtype,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:licence,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:artefactFiles,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:totalArtefactSize,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:trainingCompute,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:trainingTokens,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:trainingData,no,needs extension vocabulary,no,yes
+08-olmo-2-7b-passport,DPP,OLMo 2 7B,5 model,aic:producedAtFacilities,no,needs extension vocabulary,no,yes

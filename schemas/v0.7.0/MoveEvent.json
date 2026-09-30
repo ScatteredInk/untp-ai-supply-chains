@@ -1,0 +1,762 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "type": "array",
+      "readOnly": true,
+      "default": [
+        "MoveEvent",
+        "LifecycleEvent"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "MoveEvent",
+            "minContains": 1
+          }
+        },
+        {
+          "contains": {
+            "const": "LifecycleEvent",
+            "minContains": 1
+          }
+        }
+      ]
+    },
+    "id": {
+      "type": "string",
+      "format": "uri",
+      "description": "Globally unique ID for this lifecycle event. Should be a URI. Can be a UUID."
+    },
+    "name": {
+      "example": "battery manufacturing",
+      "type": "string",
+      "description": "The name for this lifecycle event "
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of this lifecycle event."
+    },
+    "eventDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time at which this lifecycle event occurs. use 00:00 for time if only a date is required."
+    },
+    "sensorData": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SensorData"
+      },
+      "description": "A sensor data set associated with this lifecycle event."
+    },
+    "relatedDocument": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Link"
+      },
+      "description": "A list of links to documentary evidence that supports this event. "
+    },
+    "activityType": {
+      "$ref": "#/$defs/Classification",
+      "description": "The business activity that this event represents (eg shipping, repair, etc) using a standard classification scheme - eg https://ref.gs1.org/cbv/BizStep. This may be replaced with industry specific vocabularies (ginning, spinning, weaving, dyeing, etc in textiles)"
+    },
+    "relatedParty": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PartyRole"
+      },
+      "description": "Any related parties and their roles involved in this event (eg the carrier for a shipment event)"
+    },
+    "movedProduct": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EventProduct"
+      },
+      "description": "An array of products and quantities for this movement / shipment process"
+    },
+    "fromFacility": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Facility"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Facility",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "https://sample-location-register.com/987654321",
+          "type": "string",
+          "format": "uri",
+          "description": "Globally unique identifier of this facility. Typically represented as a URI identifierScheme/Identifier URI"
+        },
+        "name": {
+          "example": "Sample Factory A",
+          "type": "string",
+          "description": "Name of this facility as defined the location register."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "description": "The source facility for this movement / shipment of products"
+    },
+    "toFacility": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Facility"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Facility",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "https://sample-location-register.com/987654321",
+          "type": "string",
+          "format": "uri",
+          "description": "Globally unique identifier of this facility. Typically represented as a URI identifierScheme/Identifier URI"
+        },
+        "name": {
+          "example": "Sample Factory A",
+          "type": "string",
+          "description": "Name of this facility as defined the location register."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "description": "The destination facility for this movement / shipment of products"
+    },
+    "consignmentId": {
+      "example": "urn:sampleCarrier-com:abc1234567",
+      "type": "string",
+      "format": "uri",
+      "description": "The consignment ID related to this movement of products. Ideally this is a resolvable URL but if not available then use a URN notation such as urn:carrier:waybillNumber."
+    }
+  },
+  "description": "Transfer (shipment) of products from one facility to another.",
+  "required": [
+    "id",
+    "name",
+    "eventDate",
+    "activityType",
+    "movedProduct",
+    "fromFacility",
+    "toFacility"
+  ],
+  "$defs": {
+    "SensorData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "PerformanceMetric"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "PerformanceMetric",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "example": "https://authority.gov/schemeABC/123456789",
+              "type": "string",
+              "format": "uri",
+              "description": "Globally unique identifier of this reporting metric. "
+            },
+            "name": {
+              "example": "emissions intensity",
+              "type": "string",
+              "description": "A human readable name for this metric (for example \"water usage per Kg of material\")"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The type of measurement recorded in this sensor data event."
+        },
+        "measure": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Measure"
+          },
+          "description": "The value measured by this sensor measurement event."
+        },
+        "rawData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Link"
+          },
+          "description": "Link to raw data file associated with this sensor reading (eg an image)."
+        },
+        "sensor": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "Product"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "Product",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "example": "did:web:manufacturer.com:product:123456789",
+              "type": "string",
+              "format": "uri",
+              "description": "Globally unique identifier of this product. Typically represented as a URI identifierScheme/Identifier URI or, if self-issued, as a did."
+            },
+            "name": {
+              "example": "600 Ah Lithium Battery",
+              "type": "string",
+              "description": "The product name as known to the market."
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The sensor device used for this sensor measurement"
+        },
+        "geoLocation": {
+          "$ref": "#/$defs/Coordinate",
+          "description": "The geolocation of this sensor data recording event."
+        }
+      },
+      "description": "A sensor data recording associated with this event",
+      "required": [
+        "metric",
+        "measure"
+      ]
+    },
+    "Measure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "example": 10,
+          "type": "number",
+          "description": "The numeric value of the measure"
+        },
+        "upperTolerance": {
+          "type": "number",
+          "description": "The upper tolerance associated with this measure expressed in the same units as the measure.  For example value=10, upperTolerance=0.1, unit=KGM would mean that this measure is 10kg + 0.1kg"
+        },
+        "lowerTolerance": {
+          "type": "number",
+          "description": "The lower tolerance associated with this measure expressed in the same units as the measure.  For example value=10, lowerTolerance=0.1, unit=KGM would mean that this measure is 10kg - 0.1kg"
+        },
+        "unit": {
+          "type": "string",
+          "x-external-enumeration": "https://vocabulary.uncefact.org/UnitMeasureCode#",
+          "description": "Unit of measure drawn from the UNECE Rec20 measure code list.\n\n    This is an enumerated value, but the list of valid values are too big, or change too often to include here. You can access the list of allowable values at this URL:  https://vocabulary.uncefact.org/UnitMeasureCode#\n    "
+        }
+      },
+      "description": "The measure class defines a numeric measured value (eg 10) and a coded unit of measure (eg KG).  There is an optional upper and lower tolerance which can be used to specify uncertainty in the measure.  ",
+      "required": [
+        "value",
+        "unit"
+      ]
+    },
+    "Link": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "linkURL": {
+          "example": "https://files.example-certifier.com/1234567.json",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the target resource.  "
+        },
+        "linkName": {
+          "type": "string",
+          "description": "Display name for this link."
+        },
+        "digestMultibase": {
+          "example": "abc123-example-digest-invalid",
+          "type": "string",
+          "description": "An optional multi-base encoded digest to ensure the content of the link has not changed. See https://www.w3.org/TR/vc-data-integrity/#resource-integrity for more information."
+        },
+        "mediaType": {
+          "example": "application/ld+json",
+          "type": "string",
+          "description": "The media type of the target resource."
+        },
+        "linkType": {
+          "example": "https://test.uncefact.org/vocabulary/linkTypes/dcc",
+          "type": "string",
+          "description": "The type of the target resource - drawn from a controlled vocabulary "
+        }
+      },
+      "description": "A structure to provide a URL link plus metadata associated with the link.",
+      "required": [
+        "linkURL",
+        "linkName"
+      ]
+    },
+    "Coordinate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latitude": {
+          "maximum": 90,
+          "minimum": -90,
+          "example": -33.87,
+          "type": "number",
+          "description": "latitude: Angular distance north or south of the equator, expressed in decimal degrees.Valid range: −90.0 to +90.0."
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "example": -151.21,
+          "type": "number",
+          "description": "longitude: Angular distance east or west of the Prime Meridian, expressed in decimal degrees.Valid range: −180.0 to +180.0."
+        }
+      },
+      "description": "A geographic point defined by latitude and longitude using the WGS84 geodetic coordinate reference system (EPSG:4326). Latitude and longitude are expressed in decimal degrees as floating-point numbers. Coordinates follow the conventional order (latitude, longitude) and represent a point on the Earth’s surface.",
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "Classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "example": 46410,
+          "type": "string",
+          "description": "classification code within the scheme"
+        },
+        "name": {
+          "example": "Primary cells and primary batteries",
+          "type": "string",
+          "description": "Name of the classification represented by the code"
+        },
+        "definition": {
+          "type": "string",
+          "description": "A rich definition of this classification code."
+        },
+        "schemeId": {
+          "example": "https://unstats.un.org/unsd/classifications/Econ/cpc/",
+          "type": "string",
+          "format": "uri",
+          "description": "Classification scheme ID"
+        },
+        "schemeName": {
+          "example": "UN Central Product Classification (CPC)",
+          "type": "string",
+          "description": "The name of the classification scheme"
+        }
+      },
+      "description": "A classification scheme and code / name representing a category value for a product, entity, or facility.",
+      "required": [
+        "code",
+        "name",
+        "schemeId",
+        "schemeName"
+      ]
+    },
+    "PartyRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "owner",
+            "producer",
+            "manufacturer",
+            "processor",
+            "remanufacturer",
+            "recycler",
+            "operator",
+            "serviceProvider",
+            "inspector",
+            "certifier",
+            "logisticsProvider",
+            "carrier",
+            "consignor",
+            "consignee",
+            "importer",
+            "exporter",
+            "distributor",
+            "retailer",
+            "brandOwner",
+            "regulator"
+          ],
+          "example": "owner",
+          "description": "The role played by the party in this relationship"
+        },
+        "party": {
+          "$ref": "#/$defs/Party",
+          "description": "The party that has the specified role."
+        }
+      },
+      "description": "A party with a defined relationship to the referencing entity",
+      "required": [
+        "role",
+        "party"
+      ]
+    },
+    "Party": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Party"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Party",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "https://sample-business-register.gov/123456789",
+          "type": "string",
+          "format": "uri",
+          "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+        },
+        "name": {
+          "example": "Sample Company Ltd",
+          "type": "string",
+          "description": "Legal registered name of this party."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the party including function and other names."
+        },
+        "registeredId": {
+          "example": 90664869327,
+          "type": "string",
+          "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+        },
+        "idScheme": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "IdentifierScheme"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "IdentifierScheme",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "description": "The URI of this identifier scheme"
+            },
+            "name": {
+              "example": "Global Identifier Scheme Name",
+              "type": "string",
+              "description": "The name of the identifier scheme. "
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The identifier scheme of the party.  Typically a national business register or a global scheme such as GLEIF. "
+        },
+        "registrationCountry": {
+          "$ref": "#/$defs/Country",
+          "description": "the country in which this organisation is registered - using ISO-3166 code and name."
+        },
+        "partyAddress": {
+          "$ref": "#/$defs/Address",
+          "description": "The address of the party"
+        },
+        "organisationWebsite": {
+          "example": "https://example-company.com",
+          "type": "string",
+          "format": "uri",
+          "description": "Website for this organisation"
+        },
+        "industryCategory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Classification"
+          },
+          "description": "The industry categories for this organisation.  Recommend use of UNCPC as the category scheme. for example - unstats.un.org/isic/1030"
+        },
+        "partyAlsoKnownAs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Party"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Party",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-business-register.gov/123456789",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+              },
+              "name": {
+                "example": "Sample Company Ltd",
+                "type": "string",
+                "description": "Legal registered name of this party."
+              },
+              "registeredId": {
+                "example": 90664869327,
+                "type": "string",
+                "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "An optional list of other registered identifiers for this organisation. For example DUNS, GLN, LEI, etc"
+        }
+      },
+      "description": "An organisation.  May be a supply chain actor, a certifier, a government agency.",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "Country": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "x-external-enumeration": "https://vocabulary.uncefact.org/CountryId#",
+          "description": "ISO 3166 country code\n\n    This is an enumerated value, but the list of valid values are too big, or change too often to include here. You can access the list of allowable values at this URL:  https://vocabulary.uncefact.org/CountryId#\n    "
+        },
+        "countryName": {
+          "type": "string",
+          "description": "Country Name as defined in ISO 3166"
+        }
+      },
+      "description": "Country Code and Name from ISO 3166",
+      "required": [
+        "countryCode"
+      ]
+    },
+    "Address": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "streetAddress": {
+          "example": "level 11, 15 London Circuit",
+          "type": "string",
+          "description": "the street address as an unstructured string."
+        },
+        "postalCode": {
+          "example": 2601,
+          "type": "string",
+          "description": "The postal code or zip code for this address."
+        },
+        "addressLocality": {
+          "example": "Acton",
+          "type": "string",
+          "description": "The city, suburb or township name."
+        },
+        "addressRegion": {
+          "example": "ACT",
+          "type": "string",
+          "description": "The state or territory or province"
+        },
+        "addressCountry": {
+          "$ref": "#/$defs/Country",
+          "description": "The address country as an ISO-3166 two letter country code and name."
+        }
+      },
+      "description": "A postal address.",
+      "required": [
+        "streetAddress",
+        "postalCode",
+        "addressLocality",
+        "addressRegion",
+        "addressCountry"
+      ]
+    },
+    "EventProduct": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "product": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "Product"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "Product",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "example": "did:web:manufacturer.com:product:123456789",
+              "type": "string",
+              "format": "uri",
+              "description": "Globally unique identifier of this product. Typically represented as a URI identifierScheme/Identifier URI or, if self-issued, as a did."
+            },
+            "name": {
+              "example": "600 Ah Lithium Battery",
+              "type": "string",
+              "description": "The product name as known to the market."
+            },
+            "idGranularity": {
+              "type": "string",
+              "enum": [
+                "model",
+                "batch",
+                "item"
+              ],
+              "example": "model",
+              "description": "The identification granularity for this product (item, batch, model)"
+            },
+            "modelNumber": {
+              "type": "string",
+              "description": "Where available, the model number (for manufactured products) or material identification (for bulk materials)"
+            },
+            "batchNumber": {
+              "example": 6789,
+              "type": "string",
+              "description": "Identifier of the specific production batch of the product.  Unique within the product class."
+            },
+            "itemNumber": {
+              "example": 12345678,
+              "type": "string",
+              "description": "A number or code representing a specific serialised item of the product. Unique within product class."
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "idGranularity"
+          ],
+          "description": "The product item / model / batch subject to this lifecycle event."
+        },
+        "quantity": {
+          "$ref": "#/$defs/Measure",
+          "description": "The quantity of product subject to this lifecycle event.  Not needed for serialised items."
+        },
+        "disposition": {
+          "type": "string",
+          "enum": [
+            "new",
+            "inTransit",
+            "active",
+            "repaired",
+            "recalled",
+            "expired",
+            "consumed",
+            "recycled",
+            "disposed"
+          ],
+          "example": "new",
+          "description": "The status of the product after the event has happened."
+        }
+      },
+      "description": "A quantity of products or materials involved in a lifecycle event.",
+      "required": [
+        "product"
+      ]
+    }
+  }
+}

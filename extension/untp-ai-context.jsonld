@@ -1,0 +1,1426 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "aic": "https://example.org/untp-ai/0.1/",
+    "untp": "https://vocabulary.uncefact.org/untp/",
+    "aic:architecture": {
+      "@id": "aic:architecture",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:artefactFiles": {
+      "@id": "aic:artefactFiles",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:byteSize": {
+      "@id": "aic:byteSize",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:chipExplorerInputs": {
+      "@id": "aic:chipExplorerInputs",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:components": {
+      "@id": "aic:components",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:composition": {
+      "@id": "aic:composition",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:computeTenant": {
+      "@id": "aic:computeTenant",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:contextLength": {
+      "@id": "aic:contextLength",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:die": {
+      "@id": "aic:die",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:dieArea": {
+      "@id": "aic:dieArea",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:documentCount": {
+      "@id": "aic:documentCount",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:equipmentUsed": {
+      "@id": "aic:equipmentUsed",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:formFactor": {
+      "@id": "aic:formFactor",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:hiddenSize": {
+      "@id": "aic:hiddenSize",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:installedEquipment": {
+      "@id": "aic:installedEquipment",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:layerCount": {
+      "@id": "aic:layerCount",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:licence": {
+      "@id": "aic:licence",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:memoryCapacity": {
+      "@id": "aic:memoryCapacity",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:memoryType": {
+      "@id": "aic:memoryType",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:parameterCount": {
+      "@id": "aic:parameterCount",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:processNode": {
+      "@id": "aic:processNode",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:producedAtFacilities": {
+      "@id": "aic:producedAtFacilities",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:sampleComposition": {
+      "@id": "aic:sampleComposition",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:tensorDtype": {
+      "@id": "aic:tensorDtype",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:thermalDesignPower": {
+      "@id": "aic:thermalDesignPower",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:tokenCount": {
+      "@id": "aic:tokenCount",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:totalArtefactSize": {
+      "@id": "aic:totalArtefactSize",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:trainingCompute": {
+      "@id": "aic:trainingCompute",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:trainingData": {
+      "@id": "aic:trainingData",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:trainingShare": {
+      "@id": "aic:trainingShare",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:trainingTokens": {
+      "@id": "aic:trainingTokens",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:transistorCount": {
+      "@id": "aic:transistorCount",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:vocabularySize": {
+      "@id": "aic:vocabularySize",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    }
+  }
+}

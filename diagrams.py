@@ -137,7 +137,7 @@ def diagram_chain():
     top2 = top1 + nh + gap
     mid = (top1 + top2 + nh) / 2
     b = []
-    headers = [("chips", "CHIPS", "stretch"), ("sites", "SITES", ""), ("data", "DATA", ""),
+    headers = [("chips", "CHIPS", ""), ("sites", "SITES", ""), ("data", "DATA", ""),
                ("train", "TRAINING RUNS", ""), ("model", "MODEL", "")]
     for k, h, note in headers:
         x, _ = cols[k]

@@ -85,6 +85,9 @@ A registered persistent scheme would be better than a hub URL. SWHID is a candid
 | `aic:trainingShare` | MakeEvent | Share of the training done in this event |
 | `aic:producedAtFacilities` | Product | Every facility that produced the product (`producedAtFacility` holds only one) |
 | `aic:tokenCount`, `aic:byteSize`, `aic:documentCount`, `aic:composition`, `aic:sampleComposition`, `aic:licence` | Dataset `characteristics` | Size, composition and licence |
+| `aic:composition[].derivedFrom`, `.synthetic`, `.generatorModel`, `.processing` | Each composition entry | Upstream source, whether synthetic and which model generated it, filtering and decontamination applied |
+| `aic:processing` | Dataset `characteristics` | Processing applied across the whole dataset |
+| `aic:dataGovernance` | Dataset `characteristics` | `optOutCompliance`, `copyrightBasis`, `personalDataHandling`, `harmfulContentFiltering`: a statement, a link, or "not published" |
 | `aic:architecture`, `aic:parameterCount`, `aic:layerCount`, `aic:hiddenSize`, `aic:contextLength`, `aic:vocabularySize`, `aic:tensorDtype`, `aic:licence`, `aic:artefactFiles`, `aic:totalArtefactSize`, `aic:trainingCompute`, `aic:trainingTokens`, `aic:trainingData` | Model `characteristics` | Model description, identifier rule and training inputs |
 | `aic:die`, `aic:processNode`, `aic:transistorCount`, `aic:dieArea`, `aic:memoryCapacity`, `aic:memoryType`, `aic:thermalDesignPower`, `aic:formFactor`, `aic:components`, `aic:chipExplorerInputs` | GPU `characteristics` | Chip description, bill of materials, ETO Chip Explorer input IDs |
 

@@ -347,6 +347,49 @@
         }
       }
     },
+    "aic:dataGovernance": {
+      "@id": "aic:dataGovernance",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
     "aic:die": {
       "@id": "aic:die",
       "@context": {
@@ -865,6 +908,49 @@
     },
     "aic:processNode": {
       "@id": "aic:processNode",
+      "@context": {
+        "@vocab": "https://example.org/untp-ai/0.1/",
+        "value": {
+          "@id": "untp:value"
+        },
+        "unit": {
+          "@id": "untp:unit",
+          "@type": "@vocab",
+          "@context": {
+            "@vocab": "https://vocabulary.uncefact.org/UnitMeasureCode#"
+          }
+        },
+        "linkURL": {
+          "@id": "untp:linkURL",
+          "@type": "@id"
+        },
+        "linkName": {
+          "@id": "untp:linkName"
+        },
+        "linkType": {
+          "@id": "untp:linkType",
+          "@type": "@id"
+        },
+        "mediaType": {
+          "@id": "untp:mediaType"
+        },
+        "code": {
+          "@id": "untp:code"
+        },
+        "schemeId": {
+          "@id": "untp:schemeId",
+          "@type": "@id"
+        },
+        "schemeName": {
+          "@id": "untp:schemeName"
+        },
+        "definition": {
+          "@id": "untp:definition"
+        }
+      }
+    },
+    "aic:processing": {
+      "@id": "aic:processing",
       "@context": {
         "@vocab": "https://example.org/untp-ai/0.1/",
         "value": {

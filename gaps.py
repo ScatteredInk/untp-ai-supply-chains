@@ -225,6 +225,28 @@ GAPS = [
     ("contrast", "Olmo 3", "facility, location, energy", "data",
      "The Olmo 3 report and blog publish no facility, location or energy data (from the handoff; not re-checked "
      "in this pass).", "ODS", "Contrast only.", "Ai2 (data holder)" + P),
+    ("3 data", "dolmino-mix-1124", "synthetic data lineage (no core field)", "standard",
+     "About 10.6B mid-training tokens are synthetic, generated with GPT-4o, Qwen2.5-7B-Instruct or unnamed models. "
+     "UNTP has no way to say a product was made by another model, or to link to that model's passport.",
+     "OLMO2", "aic:composition synthetic, generatorModel and derivedFrom; later, a link to the generator model's DPP.",
+     AI_EXT),
+    ("3 data", "olmo-mix-1124, dolmino-mix-1124", "aic:dataGovernance.optOutCompliance", "data",
+     "The report says nothing about robots.txt or other opt-out signals for the web data (over 95% of pretraining "
+     "tokens). Upstream DCLM and Dolma papers may; not checked.", "OLMO2",
+     "Statement or link per web-derived component.", "Ai2; DCLM maintainers (data holders)" + P),
+    ("3 data", "olmo-mix-1124, dolmino-mix-1124", "aic:dataGovernance.copyrightBasis", "data",
+     "Only component licence labels are given (ODC-By, CC-BY-4.0, CC-BY-SA, MIT, Apache-2.0); the legal basis "
+     "for using web content is not stated.", "OLMO2; HF-OLMOMIX",
+     "Statement per component; aligns with the EU AI Act training-data summary.", "Ai2 (data holder)" + P),
+    ("3 data", "olmo-mix-1124, dolmino-mix-1124", "aic:dataGovernance.personalDataHandling", "data",
+     "No PII handling is described for OLMo 2 data. The only PII mention is the OLMo 1 tokenizer's masking tokens.",
+     "OLMO2", "Statement of PII detection and removal per component.", "Ai2 (data holder)" + P),
+    ("3 data", "olmo-mix-1124, dolmino-mix-1124", "aic:dataGovernance.harmfulContentFiltering", "data",
+     "No toxicity or harmful-content filtering of the training data is described.", "OLMO2",
+     "Statement per component.", "Ai2 (data holder)" + P),
+    ("3 data", "olmo-mix-1124", "aic:composition.tokenCount", "knowledge",
+     "The report and dataset card differ slightly (DCLM 3.71T vs 3.70T tokens; Wikipedia 3.7B vs 3.66B).",
+     "OLMO2; HF-OLMOMIX", "None; card values used.", "Ai2 (report authors)" + P),
 ]
 
 

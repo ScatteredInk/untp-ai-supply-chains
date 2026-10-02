@@ -7,114 +7,440 @@
     "Unit": {
       "description": "A unit is either a UN/CEFACT Rec 20 code (checked against sources/snapshots/untp/rec20-codes.json by validate.py) or one of the extension unit IRIs below. Extension units are full IRIs because the UNTP context types 'unit' as @vocab against the Rec 20 namespace: a bare 'FLOP' would silently expand to a Rec 20 IRI that does not exist.",
       "anyOf": [
-        {"type": "string", "pattern": "^[A-Z0-9]{2,3}$"},
-        {"enum": [
-          "https://example.org/untp-ai/0.1/unit#FLOP",
-          "https://example.org/untp-ai/0.1/unit#TOKEN",
-          "https://example.org/untp-ai/0.1/unit#GPU-HOUR",
-          "https://example.org/untp-ai/0.1/unit#PARAMETER"
-        ]}
+        {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2,3}$"
+        },
+        {
+          "enum": [
+            "https://example.org/untp-ai/0.1/unit#FLOP",
+            "https://example.org/untp-ai/0.1/unit#TOKEN",
+            "https://example.org/untp-ai/0.1/unit#GPU-HOUR",
+            "https://example.org/untp-ai/0.1/unit#PARAMETER"
+          ]
+        }
       ]
     },
     "Measure": {
       "type": "object",
-      "required": ["value", "unit"],
+      "required": [
+        "value",
+        "unit"
+      ],
       "additionalProperties": false,
-      "properties": {"value": {"type": "number"}, "unit": {"$ref": "#/$defs/Unit"}}
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "$ref": "#/$defs/Unit"
+        }
+      }
     },
     "TokenMeasure": {
-      "allOf": [{"$ref": "#/$defs/Measure"}],
-      "properties": {"unit": {"const": "https://example.org/untp-ai/0.1/unit#TOKEN"}}
+      "allOf": [
+        {
+          "$ref": "#/$defs/Measure"
+        }
+      ],
+      "properties": {
+        "unit": {
+          "const": "https://example.org/untp-ai/0.1/unit#TOKEN"
+        }
+      }
     },
     "Classification": {
       "type": "object",
-      "required": ["code", "name", "schemeId", "schemeName"],
-      "properties": {"code": {"type": "string"}, "name": {"type": "string"},
-                     "schemeId": {"type": "string", "format": "uri"}, "schemeName": {"type": "string"}}
+      "required": [
+        "code",
+        "name",
+        "schemeId",
+        "schemeName"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "schemeId": {
+          "type": "string",
+          "format": "uri"
+        },
+        "schemeName": {
+          "type": "string"
+        }
+      }
     },
     "PartyRef": {
-      "type": "object", "required": ["id", "name"],
-      "properties": {"id": {"type": "string", "format": "uri"}, "name": {"type": "string"}}
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     },
     "aic:installedEquipment": {
       "description": "Capital equipment installed at a facility during the record period. Used by processes at the facility but not consumed by them (contrast Facility.materialUsage).",
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["equipmentType", "name", "quantity", "quantityBasis"],
+        "required": [
+          "equipmentType",
+          "name",
+          "quantity",
+          "quantityBasis"
+        ],
         "properties": {
-          "equipmentType": {"$ref": "#/$defs/Classification"},
-          "name": {"type": "string"},
-          "manufacturer": {"$ref": "#/$defs/PartyRef"},
-          "productPassport": {"type": "object", "required": ["linkURL", "linkName"]},
-          "quantity": {"$ref": "#/$defs/Measure"},
-          "quantityBasis": {"enum": ["stated", "calculated", "estimated"]},
-          "memoryCapacity": {"$ref": "#/$defs/Measure"},
-          "thermalDesignPower": {"$ref": "#/$defs/Measure"},
-          "gpusPerNode": {"$ref": "#/$defs/Measure"},
-          "systemMemory": {"$ref": "#/$defs/Measure"},
-          "localStorage": {"$ref": "#/$defs/Measure"},
-          "capacity": {"$ref": "#/$defs/Measure"}
+          "equipmentType": {
+            "$ref": "#/$defs/Classification"
+          },
+          "name": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "$ref": "#/$defs/PartyRef"
+          },
+          "productPassport": {
+            "type": "object",
+            "required": [
+              "linkURL",
+              "linkName"
+            ]
+          },
+          "quantity": {
+            "$ref": "#/$defs/Measure"
+          },
+          "quantityBasis": {
+            "enum": [
+              "stated",
+              "calculated",
+              "estimated"
+            ]
+          },
+          "memoryCapacity": {
+            "$ref": "#/$defs/Measure"
+          },
+          "thermalDesignPower": {
+            "$ref": "#/$defs/Measure"
+          },
+          "gpusPerNode": {
+            "$ref": "#/$defs/Measure"
+          },
+          "systemMemory": {
+            "$ref": "#/$defs/Measure"
+          },
+          "localStorage": {
+            "$ref": "#/$defs/Measure"
+          },
+          "capacity": {
+            "$ref": "#/$defs/Measure"
+          }
         }
       }
     },
-    "aic:computeTenant": {"type": "array", "items": {"$ref": "#/$defs/PartyRef"}},
+    "aic:computeTenant": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PartyRef"
+      }
+    },
     "aic:equipmentUsed": {
       "description": "Equipment used by a MakeEvent without being consumed. References the facility's installed equipment.",
       "type": "array",
-      "items": {"type": "object", "required": ["equipment"],
-                "properties": {"equipment": {"type": "string"},
-                               "gpuHours": {"allOf": [{"$ref": "#/$defs/Measure"}],
-                                            "properties": {"unit": {"const": "https://example.org/untp-ai/0.1/unit#GPU-HOUR"}}}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "equipment"
+        ],
+        "properties": {
+          "equipment": {
+            "type": "string"
+          },
+          "gpuHours": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Measure"
+              }
+            ],
+            "properties": {
+              "unit": {
+                "const": "https://example.org/untp-ai/0.1/unit#GPU-HOUR"
+              }
+            }
+          }
+        }
+      }
     },
-    "aic:trainingShare": {"type": "string"},
-    "aic:producedAtFacilities": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/PartyRef"}},
-    "aic:tokenCount": {"$ref": "#/$defs/TokenMeasure"},
-    "aic:trainingTokens": {"$ref": "#/$defs/TokenMeasure"},
-    "aic:contextLength": {"$ref": "#/$defs/TokenMeasure"},
-    "aic:byteSize": {"$ref": "#/$defs/Measure"},
-    "aic:totalArtefactSize": {"$ref": "#/$defs/Measure"},
-    "aic:documentCount": {"$ref": "#/$defs/Measure"},
-    "aic:trainingCompute": {"allOf": [{"$ref": "#/$defs/Measure"}],
-                            "properties": {"unit": {"const": "https://example.org/untp-ai/0.1/unit#FLOP"}}},
-    "aic:parameterCount": {"allOf": [{"$ref": "#/$defs/Measure"}],
-                           "properties": {"unit": {"const": "https://example.org/untp-ai/0.1/unit#PARAMETER"}}},
-    "aic:licence": {"type": "string", "description": "SPDX licence identifier"},
+    "aic:trainingShare": {
+      "type": "string"
+    },
+    "aic:producedAtFacilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/PartyRef"
+      }
+    },
+    "aic:tokenCount": {
+      "$ref": "#/$defs/TokenMeasure"
+    },
+    "aic:trainingTokens": {
+      "$ref": "#/$defs/TokenMeasure"
+    },
+    "aic:contextLength": {
+      "$ref": "#/$defs/TokenMeasure"
+    },
+    "aic:byteSize": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:totalArtefactSize": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:documentCount": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:trainingCompute": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Measure"
+        }
+      ],
+      "properties": {
+        "unit": {
+          "const": "https://example.org/untp-ai/0.1/unit#FLOP"
+        }
+      }
+    },
+    "aic:parameterCount": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Measure"
+        }
+      ],
+      "properties": {
+        "unit": {
+          "const": "https://example.org/untp-ai/0.1/unit#PARAMETER"
+        }
+      }
+    },
+    "aic:licence": {
+      "type": "string",
+      "description": "SPDX licence identifier"
+    },
     "aic:artefactFiles": {
       "description": "Identifier rule, part 3: each distributed weights file with its SHA-256. With the repository (modelNumber) and commit (batchNumber) this pins the exact artefact.",
-      "type": "array", "minItems": 1,
-      "items": {"type": "object", "required": ["fileName", "sha256", "byteSize"],
-                "properties": {"fileName": {"type": "string"},
-                               "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-                               "byteSize": {"$ref": "#/$defs/Measure"}}}
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "fileName",
+          "sha256",
+          "byteSize"
+        ],
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "byteSize": {
+            "$ref": "#/$defs/Measure"
+          }
+        }
+      }
     },
     "aic:composition": {
       "type": "array",
-      "items": {"type": "object", "required": ["name", "tokenCount"],
-                "properties": {"name": {"type": "string"}, "tokenCount": {"$ref": "#/$defs/TokenMeasure"},
-                               "byteSize": {"$ref": "#/$defs/Measure"}, "documentCount": {"$ref": "#/$defs/Measure"},
-                               "licence": {"type": "string"}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "tokenCount",
+          "derivedFrom",
+          "synthetic"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tokenCount": {
+            "$ref": "#/$defs/TokenMeasure"
+          },
+          "byteSize": {
+            "$ref": "#/$defs/Measure"
+          },
+          "documentCount": {
+            "$ref": "#/$defs/Measure"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "string",
+            "description": "Upstream dataset or source this component was taken from"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "description": "True if generated by a model or program rather than collected"
+          },
+          "generatorModel": {
+            "type": "string",
+            "description": "Model(s) that generated synthetic content; links model lineage"
+          },
+          "processing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filtering, deduplication or decontamination applied"
+          }
+        },
+        "if": {
+          "properties": {
+            "synthetic": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "generatorModel"
+          ]
+        }
+      }
     },
     "aic:trainingData": {
       "type": "array",
-      "items": {"type": "object", "required": ["dataset", "stage"],
-                "properties": {"dataset": {"$ref": "#/$defs/PartyRef"},
-                               "stage": {"enum": ["pretraining", "mid-training", "post-training"]},
-                               "tokensUsed": {"$ref": "#/$defs/TokenMeasure"}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "dataset",
+          "stage"
+        ],
+        "properties": {
+          "dataset": {
+            "$ref": "#/$defs/PartyRef"
+          },
+          "stage": {
+            "enum": [
+              "pretraining",
+              "mid-training",
+              "post-training"
+            ]
+          },
+          "tokensUsed": {
+            "$ref": "#/$defs/TokenMeasure"
+          }
+        }
+      }
     },
     "aic:components": {
       "type": "array",
-      "items": {"type": "object", "required": ["component", "supplier", "evidence", "status"],
-                "properties": {"supplier": {"$ref": "#/$defs/PartyRef"}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "component",
+          "supplier",
+          "evidence",
+          "status"
+        ],
+        "properties": {
+          "supplier": {
+            "$ref": "#/$defs/PartyRef"
+          }
+        }
+      }
     },
     "aic:chipExplorerInputs": {
       "type": "array",
-      "items": {"type": "object", "required": ["etoId", "name", "type"],
-                "properties": {"etoId": {"type": "string", "pattern": "^N[0-9]+$"}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "etoId",
+          "name",
+          "type"
+        ],
+        "properties": {
+          "etoId": {
+            "type": "string",
+            "pattern": "^N[0-9]+$"
+          }
+        }
+      }
     },
-    "aic:transistorCount": {"$ref": "#/$defs/Measure"},
-    "aic:dieArea": {"$ref": "#/$defs/Measure"},
-    "aic:memoryCapacity": {"$ref": "#/$defs/Measure"},
-    "aic:thermalDesignPower": {"$ref": "#/$defs/Measure"}
+    "aic:transistorCount": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:dieArea": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:memoryCapacity": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:thermalDesignPower": {
+      "$ref": "#/$defs/Measure"
+    },
+    "aic:processing": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step",
+          "appliesTo"
+        ],
+        "properties": {
+          "step": {
+            "type": "string"
+          },
+          "appliesTo": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Processing applied across a whole dataset"
+    },
+    "aic:dataGovernance": {
+      "type": "object",
+      "description": "Disclosures policy needs about training data. Each is a statement, a link, or 'not published'.",
+      "required": [
+        "optOutCompliance",
+        "copyrightBasis",
+        "personalDataHandling",
+        "harmfulContentFiltering"
+      ],
+      "properties": {
+        "optOutCompliance": {
+          "type": "string"
+        },
+        "copyrightBasis": {
+          "type": "string"
+        },
+        "personalDataHandling": {
+          "type": "string"
+        },
+        "harmfulContentFiltering": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
   }
 }

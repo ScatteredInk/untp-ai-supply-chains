@@ -505,7 +505,7 @@ def tokens(v):
     return measure(v, AIC_UNIT + "TOKEN")
 
 
-def composition_row(name, category, tok, byte_tb, docs, licence):
+def composition_row(name, category, tok, byte_tb, docs, licence, lineage=None):
     row = {"name": name}
     if category:
         row["category"] = category
@@ -513,18 +513,63 @@ def composition_row(name, category, tok, byte_tb, docs, licence):
     row["byteSize"] = measure(byte_tb, "E35")
     row["documentCount"] = measure(docs, "C62")
     row["licence"] = licence
+    if lineage:
+        row.update(lineage)
     return row
+
+
+def lineage(loc, derived_from, synthetic=False, generator=None, processing=None, note=""):
+    """Upstream source, synthetic origin and processing for one composition entry (OLMo 2 report)."""
+    out = {"derivedFrom": pub(derived_from, "OLMO2", loc, note=note),
+           "synthetic": pub(synthetic, "OLMO2", loc)}
+    if generator:
+        out["generatorModel"] = pub(generator, "OLMO2", loc,
+                                    note="Outputs of another model: a model-lineage and terms-of-use question.")
+    if processing:
+        out["processing"] = pub(processing, "OLMO2", loc)
+    return out
+
+
+def data_governance(note):
+    """What the OLMo 2 report does not disclose about the training data."""
+    np = ("Not described in the OLMo 2 report (full-text search, arXiv v3). Upstream DCLM and Dolma papers "
+          "may cover it; not checked.")
+    return {
+        "optOutCompliance": placeholder("not published", np + " Covers robots.txt and other opt-out signals."),
+        "copyrightBasis": placeholder("not published", np + " Only component licence labels are given."),
+        "personalDataHandling": placeholder(
+            "not published", np + " The only PII statement concerns the OLMo 1 tokenizer's masking tokens (§2.2)."),
+        "harmfulContentFiltering": placeholder("not published", np),
+        "note": iss(note),
+    }
+
+
+DOLMA = "Dolma 1.7 (Soldaini et al., 2024)"
+PROOFPILE = "ProofPile II (Azerbayev et al., 2023), via Dolma 1.7"
 
 
 def olmo_mix():
     comp = [
-        composition_row("DCLM-Baseline", None, 3.70e12, 21.3, 2.95e9, "CC-BY-4.0"),
-        composition_row("Arxiv", None, 20.8e9, 0.0772, 3.95e6, "ODC-BY"),
-        composition_row("pes2o", None, 58.6e9, 0.412, 38e6, "ODC-BY"),
-        composition_row("starcoder", None, 83.0e9, 0.458, 78.7e6, "ODC-BY"),
-        composition_row("Algebraic-stack", None, 11.8e9, 0.044, 2.83e6, "ODC-BY"),
-        composition_row("OpenWebMath", None, 12.2e9, 0.04723, 2.89e6, "ODC-BY"),
-        composition_row("Wiki", None, 3.66e9, 0.0181, 6.17e6, "ODC-BY"),
+        composition_row("DCLM-Baseline", None, 3.70e12, 21.3, 2.95e9, "CC-BY-4.0",
+                        lineage("§2.4.1; Table 4", "DCLM baseline 1.0 (mlfoundations/dclm-baseline-1.0)",
+                                note="Report Table 4 gives 3.71T tokens; the dataset card gives 3.70T.")),
+        composition_row("Arxiv", None, 20.8e9, 0.0772, 3.95e6, "ODC-BY",
+                        lineage("§2.4.1; Table 4", "RedPajama (Together AI, 2023), via ProofPile II and Dolma 1.7")),
+        composition_row("pes2o", None, 58.6e9, 0.412, 38e6, "ODC-BY", lineage("§2.4.1; Table 4", DOLMA)),
+        composition_row("starcoder", None, 83.0e9, 0.458, 78.7e6, "ODC-BY",
+                        lineage("§2.4.1; Table 4",
+                                "StarCoder (Li et al., 2023), from permissively-licensed GitHub repositories, "
+                                "filtered version from the OLMoE mix",
+                                processing=["removed documents from repositories with fewer than 2 GitHub stars",
+                                            "removed binary or numeric documents (most frequent word over 30%, "
+                                            "or top two words over 50%, of the document)"])),
+        composition_row("Algebraic-stack", None, 11.8e9, 0.044, 2.83e6, "ODC-BY",
+                        lineage("§2.4.1; Table 4", PROOFPILE)),
+        composition_row("OpenWebMath", None, 12.2e9, 0.04723, 2.89e6, "ODC-BY",
+                        lineage("§2.4.1; Table 4", PROOFPILE)),
+        composition_row("Wiki", None, 3.66e9, 0.0181, 6.17e6, "ODC-BY",
+                        lineage("§2.4.1; Table 4", DOLMA + ": Wikipedia and Wikibooks",
+                                note="Report Table 4 gives 3.7B tokens; the dataset card gives 3.66B.")),
     ]
     subject = {
         "type": ["Product"],
@@ -556,9 +601,15 @@ def olmo_mix():
             "aic:documentCount": ext(measure(3.08e9, "C62"), "HF-OLMOMIX", "Total row"),
             "aic:licence": ext("ODC-By-1.0", "HF-OLMOMIX", "Licensing Information",
                                note="Also subject to Common Crawl Terms of Use. Component licences differ (see composition)."),
-            "aic:composition": ext(comp, "HF-OLMOMIX", "source table",
+            "aic:composition": ext(comp, ["HF-OLMOMIX", "OLMO2"], "dataset card source table; report Table 4",
                                    note="UNTP materialProvenance needs mass fraction and origin country; neither applies. "
                                         "Composition by tokens is an extension."),
+            "aic:processing": ext([
+                {"step": "removed documents with repeated sequences of 32 or more n-grams",
+                 "appliesTo": "all sources", "purpose": "mitigate training loss spikes"},
+            ], "OLMO2", "§2.4.1; §3.1"),
+            "aic:dataGovernance": ext(data_governance(
+                "Over 95% of tokens are web data (report §2.4.1)."), "OLMO2", "§2.4"),
         },
     }
     return envelope("DigitalProductPassport", "olmo-mix-1124-passport",
@@ -567,18 +618,52 @@ def olmo_mix():
 
 def dolmino_mix():
     comp = [
-        composition_row("DCLM", "HQ Web Pages", 752e9, 4.56, 606e6, "CC-BY-4.0"),
-        composition_row("Flan", "HQ Web Pages", 17.0e9, 0.0982, 57.3e6, "ODC-BY"),
-        composition_row("Pes2o", "STEM Papers", 58.6e9, 0.413, 38.8e6, "ODC-BY"),
-        composition_row("Wiki", "Encyclopedic", 3.7e9, 0.0162, 6.17e6, "ODC-BY"),
-        composition_row("StackExchange", "CodeText", 1.26e9, 0.00772, 2.48e6, "CC-BY-SA-2.5/3.0/4.0"),
-        composition_row("TuluMath", "Synth Math", 230e6, 0.00103, 220e3, "ODC-BY"),
-        composition_row("DolminoSynthMath", "Synth Math", 28.7e6, 0.000163, 725e3, "ODC-BY"),
-        composition_row("TinyGSM-MIND", "Synth Math", 6.48e9, 0.02552, 17e6, "ODC-BY"),
-        composition_row("MathCoder2", "Synth Math", 3.87e9, 0.01848, 2.83e6, "Apache-2.0"),
-        composition_row("Metamath-owmfilter", "Math", 84.2e6, 0.000741, 383e3, "CC-BY-SA-4.0"),
-        composition_row("CodeSearchNet-owmfilter", "Math", 1.78e6, 0.0000298, 7.27e3, "ODC-BY"),
-        composition_row("GSM8K", "Math", 2.74e6, 0.0000253, 17.6e3, "MIT"),
+        composition_row("DCLM", "HQ Web Pages", 752e9, 4.56, 606e6, "CC-BY-4.0",
+                        lineage("§4.3; Table 5", "DCLM baseline 1.0 (pretraining web subset)",
+                                processing=["DCLM FastText quality classifier, top 7%",
+                                            "FineWeb-Edu classifier score 2 or above"])),
+        composition_row("Flan", "HQ Web Pages", 17.0e9, 0.0982, 57.3e6, "ODC-BY",
+                        lineage("§4.3", DOLMA + ": FLAN subset",
+                                processing=["decontaminated: removed documents with 10% or more n-gram overlap "
+                                            "with any evaluation task instance"])),
+        composition_row("Pes2o", "STEM Papers", 58.6e9, 0.413, 38.8e6, "ODC-BY", lineage("Table 5", DOLMA)),
+        composition_row("Wiki", "Encyclopedic", 3.7e9, 0.0162, 6.17e6, "ODC-BY",
+                        lineage("Table 5", DOLMA + ": Wikipedia and Wikibooks")),
+        composition_row("StackExchange", "CodeText", 1.26e9, 0.00772, 2.48e6, "CC-BY-SA-2.5/3.0/4.0",
+                        lineage("§4.3", "Stack Exchange database dump of 30 September 2024, distributed by the "
+                                        "Internet Archive",
+                                processing=["kept questions with an accepted answer",
+                                            "removed pairs where the question has fewer than 3 votes or the answer "
+                                            "fewer than 5"])),
+        composition_row("TuluMath", "Synth Math", 230e6, 0.00103, 220e3, "ODC-BY",
+                        lineage("§4.4.1", "Persona Hub personas (Chan et al., 2024)", synthetic=True,
+                                generator="GPT-4o (2024-08-06): problems and multi-step solutions")),
+        composition_row("DolminoSynthMath", "Synth Math", 28.7e6, 0.000163, 725e3, "ODC-BY",
+                        lineage("§4.4.1", "GSM8K training split (Cobbe et al., 2021) and generated arithmetic",
+                                synthetic=True,
+                                generator="Qwen2.5-7B-Instruct (MIND rewrites); other parts generated "
+                                          "programmatically (method not detailed)",
+                                note="Three parts: 11M tokens of basic arithmetic Q&A, 7,924 GSM8K examples with "
+                                     "numbers replaced, and MIND rewrites of GSM8K training examples.")),
+        composition_row("TinyGSM-MIND", "Synth Math", 6.48e9, 0.02552, 17e6, "ODC-BY",
+                        lineage("§4.4.1", "Tiny-GSM (Liu et al., 2023), itself synthetic", synthetic=True,
+                                generator="Qwen2.5-7B-Instruct (MIND 'Two Students' and 'Problem Solving' prompts)",
+                                processing=["kept answers with executable code containing only variable assignments",
+                                            "annotated each assignment with its numerical value"])),
+        composition_row("MathCoder2", "Synth Math", 3.87e9, 0.01848, 2.83e6, "Apache-2.0",
+                        lineage("§4.4.1", "Synthetic textbooks from Hugging Face user Ajibawa-2023 and the "
+                                          "M-A-P Matrix dataset",
+                                synthetic=True, generator="not published (pre-existing synthetic data)",
+                                processing=["FastText math classifier trained on 10,000 OpenWebMath examples "
+                                            "annotated by GPT-4o"])),
+        composition_row("Metamath-owmfilter", "Math", 84.2e6, 0.000741, 383e3, "CC-BY-SA-4.0",
+                        lineage("§4.4.1", "Metamath (Yu et al., 2023)",
+                                processing=["OpenWebMath FastText filter"])),
+        composition_row("CodeSearchNet-owmfilter", "Math", 1.78e6, 0.0000298, 7.27e3, "ODC-BY",
+                        lineage("§4.4.1", "CodeSearchNet (Husain et al., 2019)",
+                                processing=["OpenWebMath FastText filter"])),
+        composition_row("GSM8K", "Math", 2.74e6, 0.0000253, 17.6e3, "MIT",
+                        lineage("§4.4.1", "GSM8K training split (Cobbe et al., 2021)")),
     ]
     mix50 = [
         {"name": "DCLM Baseline", "sourcePercent": 3.23, "mixPercent": 47.2},
@@ -616,7 +701,11 @@ def dolmino_mix():
             "aic:documentCount": ext(measure(732e6, "C62"), "HF-DOLMINO", "Total row"),
             "aic:licence": ext("ODC-By-1.0", "HF-DOLMINO", "Licensing Information",
                                note="Also subject to Common Crawl Terms of Use; component licences differ."),
-            "aic:composition": ext(comp, "HF-DOLMINO", "Source Sizes table"),
+            "aic:composition": ext(comp, ["HF-DOLMINO", "OLMO2"], "dataset card Source Sizes; report Table 5, §4.3-4.4"),
+            "aic:dataGovernance": ext(data_governance(
+                "About 10.6B of the 10.7B math tokens are synthetic (TuluMath, DolminoSynthMath, TinyGSM-MIND, "
+                "MathCoder2): generated with GPT-4o, Qwen2.5-7B-Instruct, or unnamed models (report §4.4.1; "
+                "ODS sum of Table 5)."), "OLMO2", "§4"),
             "aic:sampleComposition": ext({"sampleSize": tokens(50e9), "components": mix50},
                                          "HF-DOLMINO", "Mix Compositions table, 50B column",
                                          note="The 50B sample is the one used for OLMo 2 7B (report §4.5)."),

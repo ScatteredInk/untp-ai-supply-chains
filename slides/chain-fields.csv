@@ -60,6 +60,8 @@ credential,type,title,chain,field,required,status,placeholder,extension_property
 04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:documentCount,no,needs extension vocabulary,no,yes
 04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:licence,no,needs extension vocabulary,no,yes
 04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:composition,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:processing,no,needs extension vocabulary,no,yes
+04-olmo-mix-1124-passport,DPP,olmo-mix-1124,3 data,aic:dataGovernance,no,needs extension vocabulary,yes,yes
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,modelNumber,no,published,no,no
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,batchNumber,no,published,no,no
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,idGranularity,yes,needs extension vocabulary,no,no
@@ -76,6 +78,7 @@ credential,type,title,chain,field,required,status,placeholder,extension_property
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:documentCount,no,needs extension vocabulary,no,yes
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:licence,no,needs extension vocabulary,no,yes
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:composition,no,needs extension vocabulary,no,yes
+05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:dataGovernance,no,needs extension vocabulary,yes,yes
 05-dolmino-mix-1124-passport,DPP,dolmino-mix-1124,3 data,aic:sampleComposition,no,needs extension vocabulary,no,yes
 06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,eventDate,yes,not published,yes,no
 06-training-run-jupiter,DTE MakeEvent,Training at Jupiter,4 training runs,activityType,yes,needs extension vocabulary,no,no

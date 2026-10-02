@@ -10,7 +10,7 @@ ODS Field Work, AI Supply Chains (September 2026). This is a prototype of how fa
 |---|---|
 | `credentials/` | 8 UNTP 0.7.0 credentials, ordered along the chain: chips → sites → data → training runs → model |
 | `field-matrix.csv` | Every field of every schema, per credential. Each row has a status (published / not published / needs extension vocabulary, plus issuer-controlled and container), value, basis, source key, locator and note. |
-| `gap-register.csv` | 54 gaps: item, field, gap type, proposed extension or profile, and candidate owner (all proposals) |
+| `gap-register.csv` | 60 gaps: item, field, gap type, proposed extension or profile, and candidate owner (all proposals) |
 | `extension/` | Proposed AI compute and models extension: JSON-LD context, JSON Schema rules, vocabulary (`extension/README.md`) |
 | `schemas/v0.7.0/` | Downloaded UNTP schemas, context and samples, with URLs and hashes (`MANIFEST.md`) |
 | `sources.md` | Every source, with URL and access date. Keys are cited in the matrix and register. |
